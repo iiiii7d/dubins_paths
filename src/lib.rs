@@ -115,6 +115,8 @@ use std::error::Error;
 
 /// The three segment types in a Dubin's Path
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "rkyv", derive(rkyv::Serialize, rkyv::Deserialize, rkyv::Archive))]
 pub enum SegmentType {
     /// Left-turning segment
     L,
@@ -141,6 +143,8 @@ impl SegmentType {
 
 /// All the possible path types
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "rkyv", derive(rkyv::Serialize, rkyv::Deserialize, rkyv::Archive))]
 pub enum PathType {
     #[default]
     /// A "Left Straight Left" Dubin's path
@@ -207,6 +211,8 @@ pub type Result<T> = result::Result<T, NoPathError>;
 #[cfg(not(feature = "glam"))]
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "rkyv", derive(rkyv::Serialize, rkyv::Deserialize, rkyv::Archive))]
 pub struct PosRot([FloatType; 3]);
 
 #[cfg(not(feature = "glam"))]
@@ -247,6 +253,8 @@ impl PosRot {
 /// The car's position and rotation in radians
 #[cfg(feature = "glam")]
 #[derive(Clone, Copy, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "rkyv", derive(rkyv::Serialize, rkyv::Deserialize, rkyv::Archive))]
 pub struct PosRot(Vec2, FloatType);
 
 #[cfg(feature = "glam")]
@@ -327,6 +335,8 @@ pub type Params = [FloatType; 3];
 ///
 /// To construct this type, use [`Intermediate::new`]
 #[derive(Copy, Clone, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "rkyv", derive(rkyv::Serialize, rkyv::Deserialize, rkyv::Archive))]
 pub struct Intermediate {
     alpha: FloatType,
     beta: FloatType,
@@ -544,6 +554,8 @@ pub fn mod2pi(theta: FloatType) -> FloatType {
 
 /// All the basic information about Dubin's Paths
 #[derive(Clone, Copy, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "rkyv", derive(rkyv::Serialize, rkyv::Deserialize, rkyv::Archive))]
 pub struct DubinsPath {
     /// The initial location (x, y, theta)
     pub qi: PosRot,

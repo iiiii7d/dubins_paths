@@ -20,9 +20,14 @@ rand = "0.9.1"
 
 [dependencies]
 glam = { version = "0.30.2", optional = true }
+serde = { version = "1.0.219", optional = true }
+rkyv = { version = "0.8.10", optional = true }
 
 [features]
 f64 = []
+serde = ["dep:serde", "glam?/serde"]
+rkyv = ["dep:rkyv", "glam?/rkyv"]
+bytecheck = ["rkyv", "glam?/bytecheck"]
 
 [profile.release]
 codegen-units = 1
